@@ -21,17 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Register routes
 const travelRouter = require('./app_server/routes/travel');
 
-// Use the travel router for /travel routes
-app.use('/travel', travelRouter);
-
-// Default route (redirect to travel)
-app.get('/', (req, res) => {
-    res.redirect('/travel');
-});
+// Mount the travel router
+app.use('/', travelRouter);
 
 // Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
+    console.log(`Home page available at http://localhost:${port}/`);
     console.log(`Travel page available at http://localhost:${port}/travel`);
 });
 
