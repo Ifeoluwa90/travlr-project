@@ -1,6 +1,6 @@
 /* GET travel view */
 const travel = (req, res) => {
-    res.render('travel', { title: 'Travlr Getaways' });
+    res.render('travel/index', { title: 'Travlr Getaways' });
 };
 
 module.exports = {
