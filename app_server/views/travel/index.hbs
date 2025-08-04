@@ -2,6 +2,12 @@
     <div>
         <div class="body">
             <h1>Travel</h1>
+            {{#if error}}
+                <div class="error-message" style="color: red; padding: 10px; margin: 10px 0; border: 1px solid red; background-color: #ffe6e6;">
+                    <strong>Error:</strong> {{error}}
+                </div>
+            {{/if}}
+            {{#if trips.length}}
             <ul id="sites">
                 {{#each trips}}
                 <li>
@@ -12,13 +18,16 @@
                     </p>
                     <p>
                         <strong>Length:</strong> {{this.length}}<br>
-                        <strong>Start Date:</strong> {{this.start}}<br>
+                        <strong>Start Date:</strong> {{#if this.start}}{{formatDate this.start}}{{else}}{{this.start}}{{/if}}<br>
                         <strong>Resort:</strong> {{this.resort}}<br>
                         <strong>Price per Person:</strong> ${{this.perPerson}}
                     </p>
                 </li>
                 {{/each}}
             </ul>
+            {{else}}
+                <p>No trips available at this time. Please check back later.</p>
+            {{/if}}
         </div>
     </div>
 </div>
