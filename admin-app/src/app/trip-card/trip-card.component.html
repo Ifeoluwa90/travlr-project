@@ -1,0 +1,46 @@
+<div class="card mb-4 shadow-sm">
+  <img [src]="getImagePath()" [alt]="trip.name" class="card-img-top" style="height: 200px; object-fit: cover;">
+  
+  <div class="card-body">
+    <h5 class="card-title">{{ trip.name }}</h5>
+    <p class="card-text text-muted">{{ truncateDescription(trip.description, 100) }}</p>
+    
+    <div class="row mb-2">
+      <div class="col-6">
+        <small class="text-muted">
+          <i class="fas fa-map-marker-alt"></i> {{ trip.resort }}
+        </small>
+      </div>
+      <div class="col-6 text-end">
+        <small class="text-muted">
+          <i class="fas fa-clock"></i> {{ trip.length }}
+        </small>
+      </div>
+    </div>
+    
+    <div class="row mb-3">
+      <div class="col-6">
+        <small class="text-muted">
+          <i class="fas fa-calendar"></i> {{ formatDate(trip.start) }}
+        </small>
+      </div>
+      <div class="col-6 text-end">
+        <span class="badge bg-primary fs-6">{{ formatPrice(trip.perPerson) }}</span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-6">
+        <span class="badge bg-secondary">{{ trip.code }}</span>
+      </div>
+      <div class="col-6 text-end">
+        <button class="btn btn-outline-primary btn-sm me-2" (click)="onEditTrip()">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="btn btn-outline-danger btn-sm" (click)="onDeleteTrip()">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
