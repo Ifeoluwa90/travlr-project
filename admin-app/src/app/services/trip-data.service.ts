@@ -21,12 +21,19 @@ export class TripDataService {
 
   // Get all trips
   getTrips(): Observable<Trip[]> {
-    console.log('🔄 Getting all trips from API');
-    return this.http.get<Trip[]>(this.tripsUrl)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      );
+    console.log('🔄 TripDataService: Getting all trips from API URL:', this.tripsUrl);
+    console.log('🔄 HTTP client instance:', this.http);
+    
+    const request = this.http.get<Trip[]>(this.tripsUrl).pipe(
+      retry(1),
+      catchError((error) => {
+        console.error('🚨 Raw HTTP error in service:', error);
+        return this.handleError(error);
+      })
+    );
+    
+    console.log('🔄 Request observable created:', request);
+    return request;
   }
 
   // Get single trip by code

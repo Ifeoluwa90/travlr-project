@@ -23,7 +23,9 @@ export class TripCardComponent {
   }
 
   getImagePath(): string {
-    return `assets/images/${this.trip.image}`;
+    const imagePath = `assets/images/${this.trip.image}`;
+    console.log(`🖼️ Loading image for ${this.trip.name}: ${imagePath}`);
+    return imagePath;
   }
 
   formatDate(date: Date | string): string {

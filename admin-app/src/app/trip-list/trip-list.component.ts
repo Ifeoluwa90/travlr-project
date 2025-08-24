@@ -22,21 +22,51 @@ export class TripListComponent implements OnInit {
   }
 
   loadTrips(): void {
+    console.log('🚀 TripListComponent: Starting to load trips...');
+    console.log('🚀 Service instance:', this.tripDataService);
     this.loading = true;
     this.error = '';
     
-    this.tripDataService.getTrips().subscribe({
-      next: (data: Trip[]) => {
-        console.log('✅ Trips loaded successfully:', data.length);
-        this.trips = data;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('❌ Error loading trips:', error);
-        this.error = 'Failed to load trips. Please make sure your API server is running.';
-        this.loading = false;
-      }
-    });
+    // Test direct HTTP call first
+    try {
+      console.log('🧪 Testing direct HTTP call...');
+      this.tripDataService.getTrips().subscribe({
+        next: (data: Trip[]) => {
+          console.log('✅ Trips loaded successfully:', data.length, data);
+          this.trips = data;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('❌ Error loading trips - Full error object:', error);
+          console.error('❌ Error constructor:', error?.constructor?.name);
+          console.error('❌ Error type:', typeof error);
+          console.error('❌ Error status:', error?.status);
+          console.error('❌ Error message:', error?.message);
+          console.error('❌ Error details:', error?.error);
+          console.error('❌ Error statusText:', error?.statusText);
+          console.error('❌ Error name:', error?.name);
+          console.error('❌ All error keys:', Object.keys(error || {}));
+          
+          // Try to stringify the entire error
+          try {
+            console.error('❌ Stringified error:', JSON.stringify(error, null, 2));
+          } catch (e) {
+            console.error('❌ Could not stringify error:', e);
+          }
+          
+          const errorMessage = error?.message || error?.statusText || error?.error?.message || 'Unknown error occurred';
+          this.error = `Failed to load trips: ${errorMessage}. Please make sure your API server is running.`;
+          this.loading = false;
+        },
+        complete: () => {
+          console.log('🏁 HTTP request completed');
+        }
+      });
+    } catch (syncError: any) {
+      console.error('💥 Synchronous error during subscription:', syncError);
+      this.error = `Sync error: ${syncError?.message || 'Unknown sync error'}`;
+      this.loading = false;
+    }
   }
 
   onAddNewTrip(): void {

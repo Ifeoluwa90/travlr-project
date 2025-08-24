@@ -4,8 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  standalone: false  // REQUIRED for NgModule
+  standalone: false
 })
 export class AppComponent {
   title = 'Travlr Getaways - Admin Panel';
+  
+  constructor() { }
 }
