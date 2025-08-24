@@ -341,7 +341,7 @@ travlr-project/
 ├── data/                    # Seed data
 └── app.js                   # Main application entry point
 ```
-
+* Claude was used to debug some issues I ran into in module 6 :)
 ## License
 
 This project is licensed under the SNHU.
