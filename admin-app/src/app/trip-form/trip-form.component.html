@@ -1,0 +1,179 @@
+<form [formGroup]="tripForm" (ngSubmit)="onSubmit()" novalidate>
+  <!-- Error Alert -->
+  <div class="alert alert-danger" *ngIf="error">
+    <i class="fas fa-exclamation-triangle"></i>
+    {{ error }}
+  </div>
+
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-md-6">
+      <!-- Trip Code -->
+      <div class="mb-3">
+        <label for="code" class="form-label">
+          <i class="fas fa-tag"></i> Trip Code *
+        </label>
+        <input 
+          type="text" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('code')"
+          id="code" 
+          formControlName="code"
+          placeholder="e.g., ABC123"
+          [readonly]="isEditMode">
+        <div class="invalid-feedback">
+          {{ getFieldError('code') }}
+        </div>
+        <div class="form-text" *ngIf="!isEditMode">
+          Use 5-10 uppercase letters and numbers
+        </div>
+      </div>
+
+      <!-- Trip Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label">
+          <i class="fas fa-map"></i> Trip Name *
+        </label>
+        <input 
+          type="text" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('name')"
+          id="name" 
+          formControlName="name"
+          placeholder="e.g., Amazing Coral Reef">
+        <div class="invalid-feedback">
+          {{ getFieldError('name') }}
+        </div>
+      </div>
+
+      <!-- Length -->
+      <div class="mb-3">
+        <label for="length" class="form-label">
+          <i class="fas fa-clock"></i> Duration *
+        </label>
+        <input 
+          type="text" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('length')"
+          id="length" 
+          formControlName="length"
+          placeholder="e.g., 5 days">
+        <div class="invalid-feedback">
+          {{ getFieldError('length') }}
+        </div>
+      </div>
+
+      <!-- Start Date -->
+      <div class="mb-3">
+        <label for="start" class="form-label">
+          <i class="fas fa-calendar"></i> Start Date *
+        </label>
+        <input 
+          type="date" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('start')"
+          id="start" 
+          formControlName="start">
+        <div class="invalid-feedback">
+          {{ getFieldError('start') }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-md-6">
+      <!-- Resort -->
+      <div class="mb-3">
+        <label for="resort" class="form-label">
+          <i class="fas fa-hotel"></i> Resort *
+        </label>
+        <input 
+          type="text" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('resort')"
+          id="resort" 
+          formControlName="resort"
+          placeholder="e.g., Paradise Bay Resort">
+        <div class="invalid-feedback">
+          {{ getFieldError('resort') }}
+        </div>
+      </div>
+
+      <!-- Price Per Person -->
+      <div class="mb-3">
+        <label for="perPerson" class="form-label">
+          <i class="fas fa-dollar-sign"></i> Price Per Person *
+        </label>
+        <div class="input-group">
+          <span class="input-group-text">$</span>
+          <input 
+            type="text" 
+            class="form-control"
+            [class.is-invalid]="isFieldInvalid('perPerson')"
+            id="perPerson" 
+            formControlName="perPerson"
+            placeholder="599.00">
+        </div>
+        <div class="invalid-feedback">
+          {{ getFieldError('perPerson') }}
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="mb-3">
+        <label for="image" class="form-label">
+          <i class="fas fa-image"></i> Image Filename *
+        </label>
+        <input 
+          type="text" 
+          class="form-control"
+          [class.is-invalid]="isFieldInvalid('image')"
+          id="image" 
+          formControlName="image"
+          placeholder="e.g., reef1.jpg">
+        <div class="invalid-feedback">
+          {{ getFieldError('image') }}
+        </div>
+        <div class="form-text">
+          Image should be placed in assets/images/ folder
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="mb-4">
+    <label for="description" class="form-label">
+      <i class="fas fa-file-alt"></i> Description *
+    </label>
+    <textarea 
+      class="form-control"
+      [class.is-invalid]="isFieldInvalid('description')"
+      id="description" 
+      formControlName="description"
+      rows="4"
+      placeholder="Describe the trip experience, activities, and highlights..."></textarea>
+    <div class="invalid-feedback">
+      {{ getFieldError('description') }}
+    </div>
+  </div>
+
+  <!-- Form Actions -->
+  <div class="d-flex justify-content-end gap-2">
+    <button 
+      type="button" 
+      class="btn btn-secondary" 
+      (click)="onCancel()"
+      [disabled]="isSubmitting">
+      <i class="fas fa-times"></i> Cancel
+    </button>
+    <button 
+      type="submit" 
+      class="btn btn-primary"
+      [disabled]="tripForm.invalid || isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status"></span>
+      <i class="fas fa-{{ isEditMode ? 'save' : 'plus' }}" *ngIf="!isSubmitting"></i>
+      {{ isSubmitting ? 'Saving...' : (isEditMode ? 'Update Trip' : 'Create Trip') }}
+    </button>
+  </div>
+</form>

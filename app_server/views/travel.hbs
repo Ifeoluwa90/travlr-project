@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">{{title}} - Travel Packages</h1>
+            
+            {{#if error}}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error:</strong> {{error}}
+                </div>
+            {{/if}}
+            
+            {{#if trips}}
+                <div class="row">
+                    {{#each trips}}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100">
+                                {{#if image}}
+                                    <img src="/images/{{image}}" class="card-img-top" alt="{{name}}" style="height: 200px; object-fit: cover;">
+                                {{/if}}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{name}}</h5>
+                                    <p class="card-text">{{truncateText description 100}}</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            <strong>Duration:</strong> {{length}}<br>
+                                            <strong>Start Date:</strong> {{formatDate start}}<br>
+                                            <strong>Resort:</strong> {{resort}}
+                                        </small>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-secondary">{{code}}</span>
+                                        <h5 class="mb-0 text-primary">{{formatPrice perPerson}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Trips Available</h4>
+                    <p>There are currently no travel packages available. Please check back later!</p>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
