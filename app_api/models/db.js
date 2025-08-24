@@ -50,3 +50,4 @@ mongoose.connect(dbURI);
 
 // Import schemas
 require('./trips');
+require('./users');

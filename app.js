@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
+const passport = require('passport');
 
 // Connect to database
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 const app = express();
 const port = 3000;
@@ -60,6 +62,9 @@ app.set('views', path.join(__dirname, 'app_server', 'views'));
 // Parse JSON data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Initialize passport
+app.use(passport.initialize());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));

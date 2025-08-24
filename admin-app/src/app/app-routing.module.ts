@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login';
+import { TripListComponent } from './trip-list/trip-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  // Add routes here if needed in the future
+  { path: 'login', component: LoginComponent },
+  { path: '', component: TripListComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

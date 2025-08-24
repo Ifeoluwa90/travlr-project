@@ -1,5 +1,5 @@
 <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" *ngIf="isLoggedIn()">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <i class="fas fa-suitcase-rolling"></i>
@@ -8,12 +8,21 @@
     <span class="navbar-text">
       Trip Administration Panel
     </span>
+    <div class="navbar-nav ms-auto">
+      <span class="navbar-text me-3" *ngIf="currentUser">
+        Welcome, {{ currentUser.name }}
+      </span>
+      <button class="btn btn-outline-light" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </button>
+    </div>
   </div>
 </nav>
 
 <!-- Main Content -->
 <main>
-  <app-trip-list></app-trip-list>
+  <router-outlet></router-outlet>
 </main>
 
 <!-- Footer -->
