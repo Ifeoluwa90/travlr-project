@@ -10,7 +10,10 @@ const port = 3000;
 
 // CORS middleware for Angular development
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4203');
+    const origin = req.headers.origin;
+    if (origin && origin.match(/^https?:\/\/localhost(:\d+)?$/)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     
